@@ -1,93 +1,132 @@
 @import "../../responsive.scss";
 nav {
-    height: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  a {
+    transition: all 0.4s ease;
+    &:hover {
+      scale: 1.05;
+    }
+    @include sm {
+      display: none;
+    }
+    span {
+      @include md {
+        display: none;
+      }
+      @include sm {
+        display: initial;
+      }
+    }
+  }
+  .left {
+    flex: 3;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 50px;
+    .logo {
+      display: flex;
+      font-size: 20px;
+      gap: 10px;
+      font-weight: bold;
+      align-items: center;
+      img {
+        width: 28px;
+      }
+    }
+  }
+  .right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #fcf5f3;
+    height: 100%;
+    @include md {
+      background-color: transparent;
+    }
     a {
-        transition: all 0.4s ease;
-        &:hover {
-            scale: 1.05;
-        }
+      padding: 12px 24px;
+      margin: 10px;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+      span {
         @include sm {
-            display: none;
+          display: none;
         }
-        span {
-            @include md {
-                display: none;
-            }
-            @include sm {
-                display: initial;
-            }
+      }
+      .profile {
+        padding: 12px 24px;
+        background-color: #fece51;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        position: relative;
+        .notification {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: red;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 12px;
         }
+      }
     }
-    .left {
-        flex: 3;
-        display: flex;
-        align-items: center;
-        gap: 50px;
-        .logo {
-            display: flex;
-            font-size: 20px;
-            gap: 10px;
-            font-weight: bold;
-            align-items: center;
-            img {
-                width: 28px;
-            }
-        }
+    .register {
+      background-color: #fece51;
     }
-    .right {
-        flex: 2;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        background-color: #fcf5f3;
-        height: 100%;
-        @include md {
-            background-color: transparent;
-        }
+    .menuIcon {
+      display: none;
+      z-index: 1;
+      img {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+      }
+      @include sm {
+        display: initial;
+      }
+    }
+    .mobile-menu {
+      position: absolute;
+      top: 0;
+      right: -50%;
+      background-color: black;
+      color: white;
+      height: 100vh;
+      width: 50%;
+      transition: all ease 1s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      &.active {
+        right: 0;
+      }
+      @include sm {
         a {
-            padding: 12px 24px;
-            margin: 10px;
+          display: initial;
         }
-        .register {
-            background-color: #fece51;
-        }
-        .menuIcon {
-            display: none;
-            z-index: 1;
-            img {
-                width: 36px;
-                height: 36px;
-                cursor: pointer;
-            }
-            @include sm {
-                display: initial;
-            }
-        }
-        .mobile-menu {
-            position: absolute;
-            top: 0;
-            right: -50%;
-            background-color: black;
-            color: white;
-            height: 100vh;
-            width: 50%;
-            transition: all ease 1s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            &.active {
-                right: 0;
-            }
-            @include sm {
-                a {
-                    display: initial;
-                }
-            }
-        }
+      }
     }
+  }
 }
