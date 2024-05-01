@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import { API_ENDPOINTS } from "../../config/apiEndpoints";
+import { apiAxios } from "../../config/axiosInstance";
 
 export const useRegistration = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +10,7 @@ export const useRegistration = () => {
   const register = async (userData) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(API_ENDPOINTS.REGISTER, userData);
+      const response = await apiAxios.post(API_ENDPOINTS.REGISTER, userData);
       setData(response.data);
       setError(null);
     } catch (error) {
