@@ -4,13 +4,19 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ListPage from "./routes/listPage/listPage";
-import Layouts from "./routes/layout/layout";
+import { Layout, RequiredAuth } from "./routes/layout/layout";
 import SinglePage from "./routes/singlePage/singlePage";
 import Profile from "./routes/profilePage/profile";
 import Login from "./routes/Login/login";
 import Register from "./routes/register/register";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdate";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AddNewPost from "./routes/addNewPost/addNewPost";
+import {
+  listPageLoader,
+  singlePageLoader,
+  profilePageLoader,
+} from "./lib/loader";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +24,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layouts />,
+      element: <Layout />,
       children: [
         {
           path: "/",
@@ -27,15 +33,13 @@ function App() {
         {
           path: "/list",
           element: <ListPage />,
+          loader: listPageLoader,
         },
 
         {
           path: "/:id",
           element: <SinglePage />,
-        },
-        {
-          path: "/profile",
-          element: <Profile />,
+          loader: singlePageLoader,
         },
 
         {
@@ -47,10 +51,27 @@ function App() {
           path: "/register",
           element: <Register />,
         },
+      ],
+    },
+
+    {
+      path: "/",
+      element: <RequiredAuth />,
+      children: [
+        {
+          path: "/profile",
+          element: <Profile />,
+          loader: profilePageLoader,
+        },
 
         {
           path: "/update-profile",
           element: <ProfileUpdatePage />,
+        },
+
+        {
+          path: "/add-post",
+          element: <AddNewPost />,
         },
       ],
     },
@@ -58,7 +79,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

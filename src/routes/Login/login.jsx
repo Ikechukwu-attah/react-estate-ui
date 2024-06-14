@@ -2,10 +2,15 @@ import "./login.scss";
 import { Link } from "react-router-dom";
 import { useLogin } from "./useUserLogin";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const { error, mutate, isSuccess } = useLogin();
+  const { error, mutate, isSuccess, data: resData } = useLogin();
   const [data, setData] = useState({});
+
+  const token = Cookies.get("token");
+  console.log("Retrieved token from cookie:", token);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,8 +20,7 @@ const Login = () => {
     e.preventDefault();
 
     mutate(data);
-
-    isSuccess && setData("");
+    isSuccess && setData({});
   };
   return (
     <div className="login">
@@ -24,10 +28,10 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <h1>Welcome back</h1>
           <input
-            name="username"
+            name="email"
             type="text"
-            placeholder="Username"
-            value={data?.username || ""}
+            placeholder="Email"
+            value={data?.email || ""}
             onChange={(e) => handleChange(e)}
           />
           <input
